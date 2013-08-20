@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" ng-app="lorelei-desktop">
+	<head>
+		<meta charset="utf-8">
+		<title>Desktop [LORELEI]</title>
+		<link rel="stylesheet/less" href="app/main.less">
+
+		<style>
+			#loader {
+				text-align: center;
+				padding-top: 25%;
+			}
+		</style>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+		<script src="bower_components/less/dist/less-1.4.2.js"></script>
+		<script src='https://cdn.firebase.com/v0/firebase.js'></script>
+		<script src="angularFire.js"></script>
+		<script src="prefixfree.min.js"></script>
+		<script src="app/desktop/desktop.js"></script>
+		<script src="app/main.js"></script>
+	</head>
+
+	<body ng-controller="MasterCtrl">
+		<div id="loader" ng-show="!loaded">Loading...</div>
+
+		<div id="master" ng-show="loaded">
+			<aside ng-controller="SidebarCtrl"></aside>
+			<div id="sidebar-opposite">
+				<header ng-controller="HeaderCtrl"></header>
+				<div id="content" ng-view></div>
+				<footer ng-controller="FooterCtrl"></footer>
+			</div>
+		</div>
+	</body>
+</html>
