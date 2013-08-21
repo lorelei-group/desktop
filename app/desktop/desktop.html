@@ -1,11 +1,4 @@
 <section id="desktop">
-	<div class="action add-app">
-		<a href="#/desktop/add-app">
-			<img src="app/images/add.png" />
-			<h3>+ Add App</h3>
-		</a>
-	</div>
-
 	<div class="action application" ng-repeat="app in apps">
 		<nav>
 			<a href="#/desktop/edit-app/{{app.$id}}">EDIT</a>
@@ -14,6 +7,13 @@
 		<a target="_blank" ng-href="{{app.url}}">
 			<img ng-src="{{app.icon}}" />
 			<h3 ng-bind="app.name"></h3>
+		</a>
+	</div>
+
+	<div class="action add-app">
+		<a href="#/desktop/add-app">
+			<img src="app/images/add.png" />
+			<h3>+ Add App</h3>
 		</a>
 	</div>
 </section>
