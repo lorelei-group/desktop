@@ -3,9 +3,17 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Desktop [LORELEI]</title>
+		<link rel="stylesheet" href="reset.css">
 		<link rel="stylesheet/less" href="app/main.less">
 
 		<style>
+			body, html {
+				font-family: "Verdana";
+				padding: 0;
+				margin: 0;
+				height: 100%;
+			}
+
 			#loader {
 				text-align: center;
 				padding-top: 25%;
@@ -25,12 +33,7 @@
 		<div id="loader" ng-show="!loaded">Loading...</div>
 
 		<div id="master" ng-show="loaded">
-			<aside ng-controller="SidebarCtrl"></aside>
-			<div id="sidebar-opposite">
-				<header ng-controller="HeaderCtrl"></header>
-				<div id="content" ng-view></div>
-				<footer ng-controller="FooterCtrl"></footer>
-			</div>
+			<div id="content" ng-view></div>
 		</div>
 	</body>
 </html>

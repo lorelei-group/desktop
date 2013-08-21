@@ -1,17 +1,81 @@
-.application {
-	display: inline-block;
-	width: 100px;
-	background-color: black;
-	border-radius: 5px;
+#desktop {
+	display: flex;
+	flex: 1;
+	flex-flow: row wrap;
+	align-items: stretch;
+	align-content: stretch;
+	justify-content: space-around;
 
-	img {
+	.action {
+		margin: 25px;
+		min-width: 140px;
+		height: 160px;
+		border-radius: 5px;
+		transition-property: background-color;
+		transition-duration: 1s;
 
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.2);
+		}
+
+		a {
+			display: flex;
+			height: 100%;
+			flex-flow: column;
+			align-items: center;
+
+			img {
+				margin: 15px;
+				height: 64px;
+				width: 64px;
+			}
+
+			h3 {
+				margin: 0;
+				color: white;
+				text-overflow: ellipsis;
+				text-align: center;
+				font-weight: normal;
+				text-shadow: 0 2px 1px rgba(0, 0, 0, 0.35),
+				             0 0 5px rgba(0, 0, 0, 0.7);
+			}
+		}
 	}
 
-	h3 {
-		color: white;
-		font-family: "Verdana";
-		text-align: center;
-		font-weight: normal;
+	.add-app a {
+		margin-top: 33px;
+	}
+
+	.application {
+		&:hover { nav { visibility: visible; } }
+
+		nav {
+			display: inline-block;
+			width: 100%;
+			visibility: hidden;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+			box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+
+			a, button {
+				background: url(images/icons.png) no-repeat;
+				text-indent: -9999px;
+				opacity: 0.7;
+				height: 14px;
+				width: 13px;
+				margin: 8px;
+			}
+
+			a {
+				background-position: center bottom;
+				float: left;
+			}
+
+			button {
+				background-position: center top;
+				cursor: pointer;
+				float: right;
+			}
+		}
 	}
 }

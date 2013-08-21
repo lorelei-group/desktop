@@ -12,8 +12,13 @@ angular.module('lorelei-desktop', [
 		})
 
 		.when('/desktop/add-app', {
-			templateUrl: 'app/desktop/add-app.html',
-			controller: 'DesktopCtrl'
+			templateUrl: 'app/desktop/edit-app.html',
+			controller: 'AddAppCtrl'
+		})
+
+		.when('/desktop/edit-app/:id', {
+			templateUrl: 'app/desktop/edit-app.html',
+			controller: 'EditAppCtrl'
 		})
 
 		.otherwise({redirectTo: '/desktop' });
@@ -23,15 +28,3 @@ angular.module('lorelei-desktop', [
 .controller('MasterCtrl', function($scope) {
 	$scope.loaded = true;
 })
-
-
-.controller('SidebarCtrl', function($scope) {
-})
-
-
-.controller('HeaderCtrl', function($scope) {
-})
-
-
-.controller('FooterCtrl', function($scope) {
-});
