@@ -1,5 +1,6 @@
 angular.module('lorelei-desktop-desktop', [
-	'firebase'
+	'firebase',
+	'lorelei-ui-modal',
 ])
 
 .constant('APPS_URL', 'https://lorelei.firebaseio.com/desktop/apps/')
