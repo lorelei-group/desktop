@@ -9,6 +9,13 @@ angular.module('lorelei-desktop-desktop', [
 	return angularFireCollection(APPS_URL);
 })
 
+.directive('app', function() {
+	return {
+		restrict: 'EA',
+		templateUrl: 'app/desktop/app.html'
+	}
+})
+
 .controller('DesktopCtrl', function($scope, appsCollection) {
 	$scope.apps = appsCollection;
 })

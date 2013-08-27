@@ -1,54 +1,21 @@
 #desktop {
-	display: flex;
 	flex: 1;
-	flex-flow: row wrap;
-	align-items: stretch;
-	align-content: stretch;
-	justify-content: space-around;
+	overflow: scroll;
+	padding: 10px;
 
-	.action {
-		margin: 25px;
-		min-width: 140px;
+	li {
+		display: inline-block;
 		height: 160px;
 		border-radius: 5px;
-		transition-property: background-color;
+		margin: 10px;
 		transition-duration: 1s;
-
-
+		transition-property: background-color;
 		&:hover {
 			background: rgba(255, 255, 255, 0.2);
-		}
-
-		a {
-			display: flex;
-			height: 100%;
-			flex-flow: column;
-			align-items: center;
-
-			img {
-				margin: 15px;
-				height: 64px;
-				width: 64px;
-			}
-
-			h3 {
-				margin: 0;
-				color: white;
-				text-overflow: ellipsis;
-				text-align: center;
-				font-weight: normal;
-				text-shadow: 0 2px 1px rgba(0, 0, 0, 0.35),
-				             0 0 5px rgba(0, 0, 0, 0.7);
+			nav {
+				visibility: visible;
 			}
 		}
-	}
-
-	.add-app a {
-		margin-top: 33px;
-	}
-
-	.application {
-		&:hover { nav { visibility: visible; } }
 
 		nav {
 			display: inline-block;
@@ -58,34 +25,78 @@
 			box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
 
 			a, button {
-				background: url(images/icons.png) no-repeat;
+				background: url(http://desktop.amatiasq.com/app/images/icons.png) no-repeat;
 				text-indent: -9999px;
 				opacity: 0.7;
 				height: 14px;
 				width: 13px;
 				margin: 8px;
 			}
-
-			a {
-				background-position: center bottom;
-				float: left;
-			}
-
 			button {
 				background-position: center top;
 				cursor: pointer;
 				float: right;
 			}
+			a {
+				background-position: center bottom;
+				float: left;
+			}
+		}
+
+		a[target=_blank] {
+			height: 146px;
+			display: block;
+
+			img {
+				display: block;
+				margin: 15px auto;
+				height: 64px;
+				width: 64px;
+			}
+
+			h3 {
+				margin: 0;
+				color: white;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				text-align: center;
+				font-weight: normal;
+				text-shadow: 0 2px 1px rgba(0, 0, 0, 0.35),
+				             0 0 5px rgba(0, 0, 0, 0.7);
+			}
+		}
+
+		.add-app a {
+			margin-top: 33px;
 		}
 	}
 }
 
+@media screen and (min-width: 1400px) {
+	#desktop > li { width: 11% }
+}
+@media screen and (max-width: 1400px) {
+	#desktop > li { width: 12.7% }
+}
+@media screen and (max-width: 1280px) {
+	#desktop > li { width: 14.296% }
+}
+@media screen and (max-width: 862px) {
+	#desktop > li { width: 17.115% }
+}
+@media screen and (max-width: 712px) {
+	#desktop > li { width: 21.674% }
+}
+@media screen and (max-width: 620px) {
+	#desktop > li { width: 29.177% }
+}
+@media screen and (max-width: 500px) {
+	#desktop > li { width: 28% }
+}
+
 // LINUX FIX
-#desktop {
-	-moz-flex-flow: row wrap;
-	-webkit-flex-flow: row wrap;
-	.action a {
-		-moz-flex-flow: column;
-		-webkit-flex-flow: column;
-	}
+#desktop li a {
+	-moz-flex-flow: column;
+	-webkit-flex-flow: column;
 }

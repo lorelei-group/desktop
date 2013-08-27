@@ -32,9 +32,6 @@
 
 	<body ng-controller="MasterCtrl">
 		<div id="loader" ng-show="!loaded">Loading...</div>
-
-		<div id="master" ng-show="loaded">
-			<div id="content" ng-view></div>
-		</div>
+		<div id="content" ng-show="loaded" ng-view></div>
 	</body>
 </html>
