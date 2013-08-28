@@ -2,7 +2,7 @@
 	<a href="#/desktop/edit-app/{{app.$id}}">EDIT</a>
 	<button ng-click="apps.remove(app)">REMOVE</button>
 </nav>
-<a target="_blank" ng-href="{{app.url}}">
+<a class="app-data" target="_blank" ng-href="{{app.url}}">
 	<img ng-src="{{app.icon}}" />
 	<h3 ng-bind="app.name"></h3>
 </a>

@@ -1,7 +1,7 @@
 #desktop {
 	flex: 1;
 	overflow: scroll;
-	padding: 10px;
+	padding: 0 10px 10px;
 
 	li {
 		display: inline-block;
@@ -43,7 +43,7 @@
 			}
 		}
 
-		a[target=_blank] {
+		.app-data {
 			height: 146px;
 			display: block;
 
@@ -80,19 +80,36 @@
 	#desktop > li { width: 12.7% }
 }
 @media screen and (max-width: 1280px) {
-	#desktop > li { width: 14.296% }
+	#desktop > li { width: 14.678% }
+}
+@media screen and (max-width: 1024px) {
+	#desktop > li { width: 17.628% }
 }
 @media screen and (max-width: 862px) {
 	#desktop > li { width: 17.115% }
 }
 @media screen and (max-width: 712px) {
-	#desktop > li { width: 21.674% }
+	#desktop > li { width: 21.674%; }
 }
 @media screen and (max-width: 620px) {
-	#desktop > li { width: 29.177% }
+	#desktop {
+		margin: 0 2px 2px;
+		li {
+			width: 32.498%;
+			height: 130px;
+			margin: 2px;
+			.app-data {
+				height: 80px;
+				img {
+					height: 32px;
+					width: 32px;
+				}
+			}
+		}
+	}
 }
 @media screen and (max-width: 500px) {
-	#desktop > li { width: 28% }
+	#desktop > li { width: 32.272% }
 }
 
 // LINUX FIX
