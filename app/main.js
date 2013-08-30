@@ -1,5 +1,5 @@
 angular.module('lorelei-desktop', [
-	'lorelei-desktop-desktop'
+	'remoteStorage'
 ])
 
 .config(function($routeProvider) {
@@ -7,24 +7,53 @@ angular.module('lorelei-desktop', [
 	$routeProvider
 
 		.when('/desktop', {
-			templateUrl: 'app/desktop/desktop.html',
+			templateUrl: 'app/desktop.html',
 			controller: 'DesktopCtrl'
 		})
 
 		.when('/desktop/add-app', {
-			templateUrl: 'app/desktop/edit-app.html',
+			templateUrl: 'app/edit-app.html',
 			controller: 'AddAppCtrl'
 		})
 
 		.when('/desktop/edit-app/:id', {
-			templateUrl: 'app/desktop/edit-app.html',
+			templateUrl: 'app/edit-app.html',
 			controller: 'EditAppCtrl'
 		})
 
 		.otherwise({redirectTo: '/desktop' });
 })
 
+.factory('appsCollection', function(rsCollection) {
+	return rsCollection('apps');
+})
+
+.directive('app', function() {
+	return {
+		restrict: 'EA',
+		templateUrl: 'app/app.html'
+	}
+})
 
 .controller('MasterCtrl', function($scope) {
 	$scope.loaded = true;
+})
+
+.controller('DesktopCtrl', function($scope, appsCollection) {
+	$scope.apps = appsCollection;
+})
+
+.controller('AddAppCtrl', function($scope, $location, appsCollection) {
+	$scope.save = function(app) {
+		appsCollection.add(app);
+		$location.path('/desktop');
+	};
+})
+
+.controller('EditAppCtrl', function($scope, $routeParams, $location, angularFire, APPS_URL) {
+	angularFire(APPS_URL + $routeParams.id, $scope, 'app', {});
+
+	$scope.save = function(app) {
+		$location.path('/desktop');
+	};
 })
