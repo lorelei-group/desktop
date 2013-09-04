@@ -64,7 +64,11 @@ angular.module('remoteStorage', [])
 		});
 
 		remoteStorage.access.claim(moduleName, 'rw');
-		remoteStorage[moduleName].init();
+
+		if (!localStorage['rs-module-' + moduleName]) {
+			remoteStorage[moduleName].init();
+			localStorage['rs-module-' + moduleName] = 'true';
+		}
 
 		if (first) {
 			remoteStorage.displayWidget();
