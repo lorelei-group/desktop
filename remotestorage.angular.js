@@ -11,7 +11,127 @@ angular.module('remoteStorage', [])
 	};
 })
 
-.factory("rsCollection", function($timeout, guid) {
+.factory('rsModuleManager', function(guid) {
+	var cache = {};
+	var first = true;
+
+	return function(moduleName) {
+		if (cache[moduleName])
+			return remoteStorage[moduleName];
+
+		cache[moduleName] = true;
+		var itemName = guid();
+
+		RemoteStorage.defineModule(moduleName, function(privateClient, publicClient) {
+
+			function add(data) {
+				data.id = guid();
+				return save(data);
+			}
+
+			function remove(dataOrId) {
+				var id = typeof dataOrId === 'string' ? dataOrId : dataOrId.id;
+				return privateClient.remove(id);
+			}
+
+			function save(data) {
+				return privateClient.storeObject(itemName, data.id, data);
+			}
+
+			function get(id) {
+				return privateClient.getObject(id);
+			}
+
+			function list() {
+				return privateClient.getAll('');
+			}
+
+			function init() {
+				privateClient.cache('', true);
+			}
+
+			return {
+				exports: {
+					on: privateClient.on,
+					init: init,
+					list: list,
+					get: get,
+					add: add,
+					save: save,
+					remove: remove,
+				}
+			};
+		});
+
+		remoteStorage.access.claim(moduleName, 'rw');
+		remoteStorage[moduleName].init();
+
+		if (first) {
+			remoteStorage.displayWidget();
+			first = false;
+		}
+
+		return remoteStorage[moduleName];
+	};
+})
+
+.factory('rsModel', function(rsModuleManager) {
+
+	function RsModel() {
+		this.attributes = {}
+	}
+	RsModel.prototype = {
+		constructor: RsModel,
+		get: function(key) {
+			return this.attributes[key];
+		},
+		set: function(key, value) {
+			this.attributes[key] = value;
+		}
+	};
+
+	return function(moduleName, id) {
+		var source = rsModuleManager(moduleName);
+
+		var model = new RsModel();
+		model.attributes.id = id;
+		model.save = function() {
+			source.save(this.attributes);
+		};
+
+		source.get(id).then(function(obj) {
+			if (!obj) return null;
+			Object.keys(obj).forEach(function(key) {
+				model.attributes[key] = obj[key];
+			});
+		});
+
+		return model;
+	};
+})
+
+.factory('rsBind', function($timeout, rsModuleManager) {
+	return function(moduleName, id, scope, key, defaults) {
+		var source = rsModuleManager(moduleName);
+		scope[key] = defaults || {};
+		scope[key].id = id;
+
+		source.get(id).then(function(obj) {
+			$timeout(function() {
+				if (!obj) return null;
+				Object.keys(obj).forEach(function(prop) {
+					scope[key][prop] = obj[prop];
+				});
+			});
+		});
+
+		return function() {
+			source.save(scope[key]);
+		};
+	};
+})
+
+.factory('rsCollection', function($timeout, rsModuleManager, guid) {
 
 	function find(array, iterator, scope) {
 		var value = null;
@@ -37,49 +157,7 @@ angular.module('remoteStorage', [])
 
 
 	return function(moduleName) {
-		var itemName = guid();
 		var collection = [];
-
-		RemoteStorage.defineModule(moduleName, function(privateClient, publicClient) {
-
-			function add(data) {
-				data.id = guid();
-				return save(data);
-			}
-
-			function remove(dataOrId) {
-				var id = typeof dataOrId === 'string' ? dataOrId : dataOrId.id;
-				return privateClient.remove(id);
-			}
-
-			function save(data) {
-				return privateClient.storeObject(itemName, data.id, data);
-			}
-
-			function list() {
-				return privateClient.getAll('');
-			}
-
-			function init() {
-				privateClient.cache('', true);
-			}
-
-			return {
-				exports: {
-					on: privateClient.on,
-					init: init,
-					list: list,
-					add: add,
-					save: save,
-					remove: remove,
-				}
-			};
-		});
-
-		remoteStorage.access.claim(moduleName, 'rw');
-		remoteStorage.displayWidget();
-		var source = remoteStorage[moduleName];
-		source.init();
 
 		collection.getById = function(id) {
 			return find(collection, function(item) {
@@ -92,6 +170,8 @@ angular.module('remoteStorage', [])
 				return item.id === id;
 			});
 		};
+
+		var source = rsModuleManager(moduleName);
 
 		collection.add = function(data) {
 			return source.add(data);

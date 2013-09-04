@@ -41,6 +41,13 @@ angular.module('lorelei-desktop', [
 
 .controller('DesktopCtrl', function($scope, appsCollection) {
 	$scope.apps = appsCollection;
+	var i = setInterval(function() {
+		if (appsCollection.length) {
+			clearInterval(i);
+			console.log(appsCollection);
+			console.log(appsCollection.map(function(a) {return a.id }));
+		}
+	}, 1000);
 })
 
 .controller('AddAppCtrl', function($scope, $location, appsCollection) {
@@ -50,10 +57,11 @@ angular.module('lorelei-desktop', [
 	};
 })
 
-.controller('EditAppCtrl', function($scope, $routeParams, $location, angularFire, APPS_URL) {
-	angularFire(APPS_URL + $routeParams.id, $scope, 'app', {});
+.controller('EditAppCtrl', function($scope, $routeParams, $location, rsBind) {
+	var save = rsBind('apps', $routeParams.id, $scope, 'app', {});
 
 	$scope.save = function(app) {
+		save();
 		$location.path('/desktop');
 	};
 })

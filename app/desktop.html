@@ -1,5 +1,5 @@
 <ul id="desktop">
-	<li ng-repeat="app in apps">
+	<li ng-repeat="app in apps | orderBy:'order'">
 		<x-app x-model="app"></x-app>
 	</li>
 
