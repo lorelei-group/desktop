@@ -1,0 +1,51 @@
+#edit-app {
+	width: 455px;
+
+	input {
+		display: block;
+		margin: 20px;
+		padding: 5px;
+		border-radius: 6px;
+		width: 200px;
+		&.icon-input { width: 400px; }
+	}
+
+	.icon-preview {
+		position: absolute;
+		top: 30px;
+		left: 300px;
+	}
+
+	a, button {
+		display: block;
+		box-sizing: border-box;
+		font-size: 1em;
+		font-family: helvetica;
+		text-align: center;
+		padding: 10px;
+		width: ~"calc(100% - 40px)";
+		margin: 5px 19px;
+		border: 1px solid;
+		opacity: 0.7;
+		&:hover { opacity: 1 };
+	}
+
+	a {
+		@color: #FF0000;
+		background-color: darken(@color, 45%);
+		border-color: darken(@color, 10%);
+		color: @color;
+	}
+	button {
+		@color: #00FF00;
+		background-color: darken(@color, 45%);
+		border-color: darken(@color, 10%);
+		color: @color;
+		padding: 30px;
+	}
+
+	.icon-proposals img {
+		width: 64px;
+		height: 64px;
+	}
+}

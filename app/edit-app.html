@@ -1,10 +1,17 @@
-<form ng-submit="save(app)">
+<form id="edit-app" ng-submit="save(app)">
+	<img class="icon-preview" ng-src="{{app.icon}}" />
 	<input type="text" ng-model="app.name" placeholder="Name" required />
 	<input type="text" ng-model="app.url" placeholder="Url" required />
 	<input type="text" ng-model="app.order" placeholder="Order" required />
-	<input type="text" ng-model="app.icon" placeholder="Icon" required />
-	<img ng-src="{{app.icon}}" />
-	<br />
-	<a href="#/desktop">Cancelar</a>
+	<input class="icon-input" type="text" ng-model="app.icon" placeholder="Icon" required />
+	<a href="#/desktop">Cancel</a>
 	<button type="submit">Save</button>
+
+	<ul class="icon-proposals">
+		<li ng-repeat="icon in iconsProposal">
+			<img ng-src="{{ icon.tbUrl }}" ng-click="app.icon = icon.url">
+		</li>
+	</ul>
+
 </form>
+
